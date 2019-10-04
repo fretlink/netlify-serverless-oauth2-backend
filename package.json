@@ -8,6 +8,7 @@
   "private": true,
   "dependencies": {
     "randomstring": "^1.1.5",
+    "serverless": "^1.52.2",
     "simple-oauth2": "^1.5.2"
   },
   "devDependencies": {

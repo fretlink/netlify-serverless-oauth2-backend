@@ -27,7 +27,14 @@ function getScript(mess, content) {
     window.addEventListener("message", receiveMessage, false)
     console.log("Sending message: %o", "github")
     window.opener.postMessage("authorizing:github", "*")
-    })()
+    setTimeout(function () {
+      console.log("Sending token: %o", "github")
+      window.opener.postMessage(
+        'authorization:github:${mess}:${JSON.stringify(content)}',
+        '*'
+      )
+    }, 1000)
+  })()
   </script></body></html>`;
 }
 
@@ -106,21 +113,4 @@ module.exports.callback = (e, ctx, cb) => {
         body: getScript('error', err),
       });
     });
-};
-
-module.exports.success = (e, ctx, cb) => cb(
-  null,
-  {
-    statusCode: 204,
-    body: '',
-  },
-);
-
-module.exports.default = (e, ctx, cb) => {
-  cb(null, {
-    statusCode: 302,
-    headers: {
-      Location: '/auth',
-    },
-  });
 };
